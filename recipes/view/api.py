@@ -6,8 +6,9 @@ from ..models import Recipe
 from ..serializers import RecipeSerializer, AuthorSerializer
 
 
-@api_view()
+@api_view(http_method_names=['post', 'get'])
 def recipes_api_list(request):
+    
     
     recipes = Recipe.objects.get_published()[:10]
     serializer = RecipeSerializer(instance=recipes, many=True, context={'request': request})
