@@ -54,7 +54,12 @@ urlpatterns = [
     path(
         'api/v2/recipe/<int:pk>',
         views.api.recipe_api_detail,
-        name='recipe_api_detail'
+        name='recipe_api_v2_detail'
     ),
+    path(
+        'api/v2/recipe/author/<int:pk>/',
+        views.api.recipe_api_author,
+        name='recipe_api_v2_author'
+    )
 
 ]

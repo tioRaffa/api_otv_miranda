@@ -23,7 +23,14 @@ class RecipeSerializer(serializers.Serializer):
     #     queryset=Category.objects.all()               ID da categoria
     # )
     category = serializers.StringRelatedField() # Nome da categoria
+    
     author = serializers.StringRelatedField()
+    author_link = serializers.HyperlinkedRelatedField(
+        many=False,
+        source='author',
+        queryset=User.objects.all(),
+        view_name='recipes:recipe_api_v2_author'
+    )
     
     tags = serializers.PrimaryKeyRelatedField(
         queryset=Tag.objects.all(),
@@ -33,6 +40,17 @@ class RecipeSerializer(serializers.Serializer):
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)
     is_published = serializers.BooleanField(default=False)
-    
+
+
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+        ]   
     
     
